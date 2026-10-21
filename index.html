@@ -1,0 +1,715 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMSitumorang - Portfolio</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#f97316',
+                        'brand-light': '#fff1eb',
+                        'brand-hover': '#ea580c',
+                        dark: '#18181b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white text-zinc-700 font-sans antialiased selection:bg-brand selection:text-white">
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-zinc-100">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-black tracking-tight text-dark flex items-center gap-1">
+                V M<span class="text-brand">S.</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-zinc-600">
+                <a href="#home" data-key="nav_home" class="text-brand relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-brand">Home</a>
+                <a href="#about" data-key="nav_about" class="hover:text-brand transition-colors">About</a>
+                <a href="#skills" data-key="nav_skills" class="hover:text-brand transition-colors">Skills</a>
+                <a href="#projects" data-key="nav_work" class="hover:text-brand transition-colors">Work</a>
+                <a href="#experience" data-key="nav_exp" class="hover:text-brand transition-colors">Experience</a>
+                <a href="#contact" data-key="nav_contact" class="hover:text-brand transition-colors">Contact</a>
+            </nav>
+
+            <!-- Action Buttons & Language Selector -->
+            <div class="hidden md:flex items-center gap-3">
+
+                <!-- Language Dropdown -->
+                <div class="relative">
+                    <button id="lang-btn" class="bg-brand-light border border-orange-200 text-dark px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-between gap-3 hover:bg-orange-100/60 transition-all w-36">
+                        <span id="selected-lang" class="flex items-center gap-2">🇬🇧 English</span>
+                        <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div id="lang-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-brand-light border border-orange-200 rounded-2xl shadow-xl overflow-hidden z-50 p-1.5 space-y-1">
+                        <button type="button" onclick="setLanguage('id')" class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs font-medium text-dark hover:bg-white rounded-xl transition-all">
+                            <span class="flex items-center gap-2.5"><span class="text-base">🇮🇩</span> Indonesian</span>
+                            <span id="check-id" class="check-icon hidden text-brand font-bold">✓</span>
+                        </button>
+
+                        <button type="button" onclick="setLanguage('en')" class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs font-medium text-dark hover:bg-white rounded-xl transition-all">
+                            <span class="flex items-center gap-2.5"><span class="text-base">🇬🇧</span> English</span>
+                            <span id="check-en" class="check-icon text-brand font-bold">✓</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Let's Talk Button -->
+                <a href="#contact" data-key="btn_talk" class="bg-dark text-white px-5 py-2 rounded-xl text-xs font-semibold hover:bg-zinc-800 transition-all flex items-center gap-2 group">
+                    Let's Talk
+                    <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-dark focus:outline-none" aria-label="Toggle navigation" aria-expanded="false">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-zinc-200 px-6 py-4 flex flex-col gap-4 font-semibold text-sm">
+            <a href="#home" data-key="nav_home" class="text-brand">Home</a>
+            <a href="#about" data-key="nav_about">About</a>
+            <a href="#skills" data-key="nav_skills">Skills</a>
+            <a href="#projects" data-key="nav_work">Work</a>
+            <a href="#experience" data-key="nav_exp">Experience</a>
+            <a href="#contact" data-key="nav_contact">Contact</a>
+            <a href="#contact" data-key="btn_talk" class="bg-brand text-white text-center py-2.5 rounded-lg">Let's Talk</a>
+
+            <!-- Language selector for mobile -->
+            <div class="flex gap-3 pt-2 border-t border-zinc-100">
+                <button type="button" onclick="setLanguage('en')" class="text-xs font-semibold hover:text-brand">🇬🇧 English</button>
+                <button type="button" onclick="setLanguage('id')" class="text-xs font-semibold hover:text-brand">🇮🇩 Indonesia</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12 space-y-28">
+
+        <!-- HERO SECTION -->
+        <section id="home" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-4">
+            <div class="lg:col-span-7 space-y-6">
+                <span data-key="hero_hi" class="text-sm font-bold text-dark tracking-wide">Hi, I'm</span>
+
+                <h1 class="text-5xl sm:text-6xl font-black text-dark tracking-tight leading-none">
+                    Veron Manasse<span class="text-brand"> Situmorang</span>
+                </h1>
+
+                <p data-key="hero_role" class="text-lg font-semibold text-zinc-600">
+                    Software Engineering Student & Maintenance AC
+                </p>
+
+                <p data-key="hero_desc" class="text-zinc-500 leading-relaxed max-w-xl">
+                    I am a Software Engineering student at Batam State Polytechnic who enjoys building web applications and exploring technology. I turn ideas into practical digital solutions through programming, problem-solving, and continuous learning.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#projects" data-key="btn_work" class="bg-brand text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-brand/20 hover:bg-brand-hover transition-all flex items-center gap-2">
+                        View My Work
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+
+                    <a href="mailto:veronmanasse@gmail.com" data-key="btn_cv" class="border border-zinc-300 text-dark px-6 py-3 rounded-xl font-semibold hover:bg-zinc-50 transition-all flex items-center gap-2">
+                        Contact Me
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 8l-9 6-9-6m18-3H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Art / Photo -->
+            <div class="lg:col-span-5 flex justify-center relative">
+                <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl bg-brand-light border-2 border-brand/20 overflow-hidden shadow-2xl flex items-center justify-center">
+                    <img src="foto_veron.jpg" alt="Veron Manasse Situmorang" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </section>
+
+       <!-- ABOUT ME SECTION -->
+<section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-5 flex justify-center order-2 lg:order-1">
+        <!-- <div class="w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-md border border-zinc-200 bg-zinc-50 flex items-center justify-center"> -->
+            <img src="veron_foto2.jpg" alt="Veron Manasse Situmorang" class="w-full h-full object-cover">
+        </div>
+    </div>
+
+    <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+        <div>
+            <h2 data-key="about_title" class="text-3xl font-bold text-dark">About Me</h2>
+            <div class="w-12 h-1 bg-brand mt-2 rounded-full"></div>
+        </div>
+
+        <p data-key="about_desc" class="text-zinc-600 leading-relaxed">
+            I am a Diploma IV Software Engineering Technology student at Batam State Polytechnic, Indonesia. My interests include web development, backend systems, user interface design, and Internet of Things (IoT). Through academic projects and hands-on experience, I continue to improve my technical skills, collaborate with others, and build solutions that address real-world problems.
+        </p>
+    </div>
+</section>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                <div>
+                    <h2 data-key="about_title" class="text-3xl font-bold text-dark">About Me</h2>
+                    <div class="w-12 h-1 bg-brand mt-2 rounded-full"></div>
+                </div>
+
+                <p data-key="about_desc" class="text-zinc-600 leading-relaxed">
+                    I am a Diploma IV Software Engineering Technology student at Batam State Polytechnic, Indonesia. My interests include web development, backend systems, user interface design, and Internet of Things (IoT). Through academic projects and hands-on experience, I continue to improve my technical skills, collaborate with others, and build solutions that address real-world problems.
+                </p>
+
+                <!-- Soft Skills Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
+                    <div class="flex items-center gap-3 p-2">
+                        <span class="text-brand">💡</span>
+                        <span data-key="skill_problem" class="text-sm font-bold text-dark">Problem Solver</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-2">
+                        <span class="text-brand">🎯</span>
+                        <span data-key="skill_detail" class="text-sm font-bold text-dark">Detail Oriented</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-2">
+                        <span class="text-brand">💻</span>
+                        <span data-key="skill_clean" class="text-sm font-bold text-dark">Clean Code</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-2">
+                        <span class="text-brand">📚</span>
+                        <span data-key="skill_learn" class="text-sm font-bold text-dark">Always Learning</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-2">
+                        <span class="text-brand">👥</span>
+                        <span data-key="skill_team" class="text-sm font-bold text-dark">Team Player</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 p-2">
+                        <span class="text-brand">🔍</span>
+                        <span data-key="skill_curious" class="text-sm font-bold text-dark">Curious Mind</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS & TECHNOLOGIES -->
+        <section id="skills" class="space-y-8">
+            <h2 data-key="skills_title" class="text-3xl font-bold text-dark">Skills & Technologies</h2>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <div class="bg-brand-light/50 border border-orange-100 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:shadow-md transition-shadow">
+                    <span class="font-mono text-xl text-brand font-bold">&lt;/&gt;</span>
+                    <span class="text-sm font-bold text-dark">HTML & CSS</span>
+                </div>
+
+                <div class="bg-brand-light/50 border border-orange-100 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:shadow-md transition-shadow">
+                    <span class="font-bold text-xl text-brand">PHP</span>
+                    <span class="text-sm font-bold text-dark">Laravel</span>
+                </div>
+
+                <div class="bg-brand-light/50 border border-orange-100 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:shadow-md transition-shadow">
+                    <span class="font-bold text-xl text-brand">JS</span>
+                    <span class="text-sm font-bold text-dark">JavaScript</span>
+                </div>
+
+                <div class="bg-brand-light/50 border border-orange-100 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:shadow-md transition-shadow">
+                    <span class="font-bold text-xl text-brand">PY</span>
+                    <span class="text-sm font-bold text-dark">Python & OpenCV</span>
+                </div>
+
+                <div class="bg-brand-light/50 border border-orange-100 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:shadow-md transition-shadow">
+                    <span class="font-bold text-xl text-brand">GH</span>
+                    <span class="text-sm font-bold text-dark">Git & GitHub</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SELECTED WORK / PROJECTS -->
+        <section id="projects" class="space-y-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 data-key="work_title" class="text-3xl font-bold text-dark">Selected Work</h2>
+                    <div class="w-12 h-1 bg-brand mt-2 rounded-full"></div>
+                </div>
+
+                <a href="https://github.com/veronsitumorang" target="_blank" rel="noopener noreferrer" data-key="work_view_all" class="text-sm font-bold text-brand hover:underline flex items-center gap-1">
+                    View All Projects &rarr;
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- Project Card 1 -->
+                <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-4 space-y-4 hover:border-brand transition-colors">
+                    <div class="bg-brand-light rounded-xl h-44 flex items-center justify-center text-4xl border border-orange-100">
+                        🔧
+                    </div>
+
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-dark flex items-center justify-between">
+                            BenerinAja
+                            <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </h3>
+
+                        <p data-key="proj1_desc" class="text-xs text-zinc-500 leading-relaxed">
+                            A web platform for finding electronic appliance repair technicians in Batam, with category-based discovery and repair order tracking.
+                        </p>
+
+                        <p class="text-[11px] font-semibold text-zinc-400">Laravel • PHP • Tailwind CSS</p>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-4 space-y-4 hover:border-brand transition-colors">
+                    <div class="bg-brand-light rounded-xl h-44 flex items-center justify-center text-4xl border border-orange-100">
+                        🦯
+                    </div>
+
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-dark flex items-center justify-between">
+                            Guardian Stick
+                            <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </h3>
+
+                        <p data-key="proj2_desc" class="text-xs text-zinc-500 leading-relaxed">
+                            A smart cane project using sensors and IoT technology to support obstacle detection and user safety.
+                        </p>
+
+                        <p class="text-[11px] font-semibold text-zinc-400">ESP32 • Sensors • IoT</p>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-4 space-y-4 hover:border-brand transition-colors">
+                    <div class="bg-brand-light rounded-xl h-44 flex items-center justify-center text-4xl border border-orange-100">
+                        💻
+                    </div>
+
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-dark flex items-center justify-between">
+                            Personal Portfolio
+                            <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </h3>
+
+                        <p data-key="proj3_desc" class="text-xs text-zinc-500 leading-relaxed">
+                            A personal portfolio website showcasing my profile, technical skills, experience, and software projects.
+                        </p>
+
+                        <p class="text-[11px] font-semibold text-zinc-400">HTML • Tailwind CSS • JavaScript</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="space-y-8">
+            <div>
+                <h2 data-key="exp_title" class="text-3xl font-bold text-dark">Experience</h2>
+                <div class="w-12 h-1 bg-brand mt-2 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Experience 1 -->
+                <div class="flex items-start gap-4 p-6 bg-zinc-50 border border-zinc-200 rounded-2xl">
+                    <div class="p-3 bg-brand-light border border-orange-100 rounded-xl text-brand font-bold text-xl">
+                        💻
+                    </div>
+
+                    <div class="space-y-1">
+                        <span data-key="exp1_date" class="text-xs font-bold text-brand">
+                            January 2023 - July 2023 (Internship)
+                        </span>
+
+                        <h3 data-key="exp1_role" class="font-bold text-dark">
+                            IT Intern
+                        </h3>
+
+                        <p class="text-sm text-zinc-500">
+                            Institut Teknologi Batam
+                        </p>
+
+                        <p data-key="exp1_desc" class="text-xs text-zinc-400 pt-2">
+                            Gained practical exposure to information technology operations and workplace practices while developing technical knowledge and problem-solving skills.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="flex items-start gap-4 p-6 bg-zinc-50 border border-zinc-200 rounded-2xl">
+                    <div class="p-3 bg-brand-light border border-orange-100 rounded-xl text-brand font-bold text-xl">
+                        🛠️
+                    </div>
+
+                    <div class="space-y-1">
+                        <span data-key="exp2_date" class="text-xs font-bold text-brand">
+                            August 2024 - Present
+                        </span>
+
+                        <h3 data-key="exp2_role" class="font-bold text-dark">
+                            AC Maintenance Technician
+                        </h3>
+
+                        <p class="text-sm text-zinc-500">
+                            Yayasan Pancaran Maitri
+                        </p>
+
+                        <p data-key="exp2_desc" class="text-xs text-zinc-400 pt-2">
+                            Carrying out air conditioning maintenance activities to support equipment performance and a comfortable working environment.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MY PROCESS -->
+        <section class="space-y-8">
+            <div>
+                <h2 data-key="proc_title" class="text-3xl font-bold text-dark">My Process</h2>
+                <div class="w-12 h-1 bg-brand mt-2 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 text-center">
+
+                <div class="p-4 space-y-2">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-brand-light border border-orange-200 flex items-center justify-center text-xl">🔍</div>
+                    <span class="text-xs font-bold text-brand">01</span>
+                    <h3 data-key="proc1_title" class="font-bold text-dark text-sm">Discover</h3>
+                    <p data-key="proc1_desc" class="text-xs text-zinc-400">Understand the problem and user needs.</p>
+                </div>
+
+                <div class="p-4 space-y-2">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-brand-light border border-orange-200 flex items-center justify-center text-xl">✏️</div>
+                    <span class="text-xs font-bold text-brand">02</span>
+                    <h3 data-key="proc2_title" class="font-bold text-dark text-sm">Design</h3>
+                    <p data-key="proc2_desc" class="text-xs text-zinc-400">Plan and design practical solutions.</p>
+                </div>
+
+                <div class="p-4 space-y-2">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-brand-light border border-orange-200 flex items-center justify-center text-xl">&lt;/&gt;</div>
+                    <span class="text-xs font-bold text-brand">03</span>
+                    <h3 data-key="proc3_title" class="font-bold text-dark text-sm">Develop</h3>
+                    <p data-key="proc3_desc" class="text-xs text-zinc-400">Build features with clean, maintainable code.</p>
+                </div>
+
+                <div class="p-4 space-y-2">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-brand-light border border-orange-200 flex items-center justify-center text-xl">🚀</div>
+                    <span class="text-xs font-bold text-brand">04</span>
+                    <h3 data-key="proc4_title" class="font-bold text-dark text-sm">Test & Deploy</h3>
+                    <p data-key="proc4_desc" class="text-xs text-zinc-400">Test functionality and prepare the release.</p>
+                </div>
+
+                <div class="p-4 space-y-2 col-span-2 sm:col-span-1">
+                    <div class="w-14 h-14 mx-auto rounded-full bg-brand-light border border-orange-200 flex items-center justify-center text-xl">📈</div>
+                    <span class="text-xs font-bold text-brand">05</span>
+                    <h3 data-key="proc5_title" class="font-bold text-dark text-sm">Improve</h3>
+                    <p data-key="proc5_desc" class="text-xs text-zinc-400">Learn from feedback and keep improving.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="pt-8 border-t border-zinc-200">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+                <div class="lg:col-span-6 space-y-4">
+                    <h2 data-key="contact_heading" class="text-3xl sm:text-4xl font-extrabold text-dark leading-tight">
+                        Let's build something meaningful <span class="text-brand">together.</span>
+                    </h2>
+                    <div class="w-12 h-1 bg-brand rounded-full"></div>
+                </div>
+
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="space-y-3">
+                        <a href="mailto:veronmanasse@gmail.com" class="flex items-center gap-3 text-sm font-semibold text-zinc-600 hover:text-brand">
+                            <span class="p-2 bg-zinc-100 rounded-lg">✉️</span>
+                            veronmanasse@gmail.com
+                        </a>
+
+                        <p class="flex items-center gap-3 text-sm font-semibold text-zinc-600">
+                            <span class="p-2 bg-zinc-100 rounded-lg">📍</span>
+                            Batam, Indonesia
+                        </p>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="pt-4 flex items-center gap-3">
+                        <span data-key="contact_connect" class="text-xs font-bold text-zinc-400 mr-2">Let's Connect</span>
+
+                        <a href="https://linkedin.com/in/veron-manasse-situmorang-347b3730a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-10 h-10 border border-zinc-200 rounded-full flex items-center justify-center hover:bg-brand hover:text-white hover:border-brand transition-all">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://facebook.com/veron.onedoskii/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-10 h-10 border border-zinc-200 rounded-full flex items-center justify-center hover:bg-brand hover:text-white hover:border-brand transition-all">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.69c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.24c-1.23 0-1.61.76-1.61 1.54V12h2.74l-.44 3h-2.3v6.8c4.56-.93 8-4.96 8-9.8z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://instagram.com/veronsitumorang_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-10 h-10 border border-zinc-200 rounded-full flex items-center justify-center hover:bg-brand hover:text-white hover:border-brand transition-all">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://threads.net/@veronsitumorang_/" target="_blank" rel="noopener noreferrer" aria-label="Threads" class="w-10 h-10 border border-zinc-200 rounded-full flex items-center justify-center hover:bg-brand hover:text-white hover:border-brand transition-all">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                                <path d="M6.321 6.016c-.27-.18-1.166-.802-1.166-.802.756-1.081 1.753-1.502 3.132-1.502.975 0 1.803.327 2.394.948s.928 1.509 1.005 2.644q.492.207.905.484c1.109.745 1.719 1.86 1.719 3.137 0 2.716-2.226 5.075-6.256 5.075C4.054 16 1 13.987 1 7.994 1 2.034 4.482 0 8.044 0 9.69 0 13.55.243 15 5.036l-1.36.353C12.516 1.974 10.163 1.43 8.006 1.43c-3.565 0-5.582 2.171-5.582 6.79 0 4.143 2.254 6.343 5.63 6.343 2.777 0 4.847-1.443 4.847-3.556 0-1.438-1.208-2.127-1.27-2.127-.236 1.234-.868 3.31-3.644 3.31-1.618 0-3.013-1.118-3.013-2.582 0-2.09 1.984-2.847 3.55-2.847.586 0 1.294.04 1.663.114 0-.637-.54-1.728-1.9-1.728-1.25 0-1.566.868-1.967.868Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer data-key="footer_copy" class="border-t border-zinc-100 py-8 text-center text-xs text-zinc-400 font-semibold">
+        © 2026 Veron Manasse Situmorang
+    </footer>
+
+    <!-- LANGUAGE TRANSLATION -->
+    <script>
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_about: "About",
+                nav_skills: "Skills",
+                nav_work: "Work",
+                nav_exp: "Experience",
+                nav_contact: "Contact",
+
+                btn_talk: "Let's Talk",
+
+                hero_hi: "Hi, I'm",
+                hero_role: "Software Engineering Student & Aspiring Full-Stack Developer",
+                hero_desc: "I am a Software Engineering student at Batam State Polytechnic who enjoys building web applications and exploring technology. I turn ideas into practical digital solutions through programming, problem-solving, and continuous learning.",
+
+                btn_work: 'View My Work <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>',
+                btn_cv: 'Contact Me <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 8l-9 6-9-6m18-3H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/></svg>',
+
+                about_polibatam: "Software Engineering Student at Batam State Polytechnic",
+                about_title: "About Me",
+                about_desc: "I am a Diploma IV Software Engineering Technology student at Batam State Polytechnic, Indonesia. My interests include web development, backend systems, user interface design, and Internet of Things (IoT). Through academic projects and hands-on experience, I continue to improve my technical skills, collaborate with others, and build solutions that address real-world problems.",
+
+                skill_problem: "Problem Solver",
+                skill_detail: "Detail Oriented",
+                skill_clean: "Clean Code",
+                skill_learn: "Always Learning",
+                skill_team: "Team Player",
+                skill_curious: "Curious Mind",
+
+                skills_title: "Skills & Technologies",
+
+                work_title: "Selected Work",
+                work_view_all: "View All Projects &rarr;",
+
+                proj1_desc: "A web platform for finding electronic appliance repair technicians in Batam, with category-based discovery and repair order tracking.",
+                proj2_desc: "A smart cane project using sensors and IoT technology to support obstacle detection and user safety.",
+                proj3_desc: "A personal portfolio website showcasing my profile, technical skills, experience, and software projects.",
+
+                exp_title: "Experience",
+                exp1_date: "January 2023 - July 2023 (Internship)",
+                exp1_role: "IT Intern",
+                exp1_desc: "Gained practical exposure to information technology operations and workplace practices while developing technical knowledge and problem-solving skills.",
+
+                exp2_date: "August 2024 - Present",
+                exp2_role: "AC Maintenance Technician",
+                exp2_desc: "Carrying out air conditioning maintenance activities to support equipment performance and a comfortable working environment.",
+
+                proc_title: "My Process",
+                proc1_title: "Discover",
+                proc1_desc: "Understand the problem and user needs.",
+                proc2_title: "Design",
+                proc2_desc: "Plan and design practical solutions.",
+                proc3_title: "Develop",
+                proc3_desc: "Build features with clean, maintainable code.",
+                proc4_title: "Test & Deploy",
+                proc4_desc: "Test functionality and prepare the release.",
+                proc5_title: "Improve",
+                proc5_desc: "Learn from feedback and keep improving.",
+
+                contact_heading: 'Let\'s build something meaningful <span class="text-brand">together.</span>',
+                contact_connect: "Let's Connect",
+
+                footer_copy: "© 2026 Veron Manasse Situmorang. All rights reserved. ❤️"
+            },
+
+            id: {
+                nav_home: "Beranda",
+                nav_about: "Tentang",
+                nav_skills: "Keahlian",
+                nav_work: "Karya",
+                nav_exp: "Pengalaman",
+                nav_contact: "Kontak",
+
+                btn_talk: "Mari Terhubung",
+
+                hero_hi: "Halo, Saya",
+                hero_role: "Mahasiswa Rekayasa Perangkat Lunak & Calon Full-Stack Developer",
+                hero_desc: "Saya adalah mahasiswa Rekayasa Perangkat Lunak di Politeknik Negeri Batam yang senang membangun aplikasi web dan mempelajari teknologi. Saya mengubah ide menjadi solusi digital yang praktis melalui pemrograman, pemecahan masalah, dan pembelajaran berkelanjutan.",
+
+                btn_work: 'Lihat Karya Saya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>',
+                btn_cv: 'Hubungi Saya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 8l-9 6-9-6m18-3H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/></svg>',
+
+                about_polibatam: "Mahasiswa Rekayasa Perangkat Lunak di Politeknik Negeri Batam",
+                about_title: "Tentang Saya",
+                about_desc: "Saya adalah mahasiswa program Sarjana Terapan Teknologi Rekayasa Perangkat Lunak di Politeknik Negeri Batam, Indonesia. Saya tertarik pada pengembangan web, sistem backend, desain antarmuka pengguna, dan Internet of Things (IoT). Melalui proyek akademik dan pengalaman praktik, saya terus mengembangkan keterampilan teknis, bekerja sama dengan orang lain, dan membangun solusi untuk permasalahan nyata.",
+
+                skill_problem: "Pemecah Masalah",
+                skill_detail: "Berorientasi pada Detail",
+                skill_clean: "Kode yang Rapi",
+                skill_learn: "Terus Belajar",
+                skill_team: "Kerja Sama Tim",
+                skill_curious: "Rasa Ingin Tahu",
+
+                skills_title: "Keahlian & Teknologi",
+
+                work_title: "Proyek Pilihan",
+                work_view_all: "Lihat Semua Proyek &rarr;",
+
+                proj1_desc: "Platform web untuk mencari teknisi perbaikan barang elektronik di Batam, dengan pencarian berdasarkan kategori dan pemantauan pesanan perbaikan.",
+                proj2_desc: "Proyek tongkat pintar yang menggunakan sensor dan teknologi IoT untuk membantu mendeteksi hambatan dan mendukung keselamatan pengguna.",
+                proj3_desc: "Website portfolio pribadi yang menampilkan profil, keahlian teknis, pengalaman, dan proyek perangkat lunak saya.",
+
+                exp_title: "Pengalaman",
+                exp1_date: "Januari 2023 - Juli 2023 (Magang)",
+                exp1_role: "Peserta Magang IT",
+                exp1_desc: "Mendapatkan pengalaman praktik mengenai operasional teknologi informasi dan lingkungan kerja sambil mengembangkan pengetahuan teknis serta keterampilan pemecahan masalah.",
+
+                exp2_date: "Agustus 2024 - Sekarang",
+                exp2_role: "Teknisi Maintenance AC",
+                exp2_desc: "Melaksanakan kegiatan pemeliharaan AC untuk mendukung kinerja peralatan dan menjaga kenyamanan lingkungan kerja.",
+
+                proc_title: "Proses Kerja Saya",
+                proc1_title: "Memahami",
+                proc1_desc: "Memahami masalah dan kebutuhan pengguna.",
+                proc2_title: "Merancang",
+                proc2_desc: "Merencanakan dan merancang solusi praktis.",
+                proc3_title: "Mengembangkan",
+                proc3_desc: "Membangun fitur dengan kode yang rapi dan mudah dipelihara.",
+                proc4_title: "Menguji & Merilis",
+                proc4_desc: "Menguji fungsionalitas dan mempersiapkan rilis.",
+                proc5_title: "Meningkatkan",
+                proc5_desc: "Belajar dari masukan dan terus melakukan perbaikan.",
+
+                contact_heading: 'Mari membangun sesuatu yang bermakna <span class="text-brand">bersama.</span>',
+                contact_connect: "Mari Terhubung",
+
+                footer_copy: "© 2026 Veron Manasse Situmorang."
+            }
+        };
+
+        // Language dropdown elements
+        const langBtn = document.getElementById('lang-btn');
+        const langDropdown = document.getElementById('lang-dropdown');
+        const selectedLangText = document.getElementById('selected-lang');
+        const checkId = document.getElementById('check-id');
+        const checkEn = document.getElementById('check-en');
+
+        langBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            langDropdown.classList.toggle('hidden');
+        });
+
+        langDropdown.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', () => {
+            langDropdown.classList.add('hidden');
+        });
+
+        // Toggle mobile menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            menuBtn.setAttribute('aria-expanded', String(!isHidden));
+        });
+
+        // Close mobile menu when a navigation link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Translation function
+        function setLanguage(lang) {
+            const data = translations[lang];
+
+            if (!data) return;
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+
+                if (Object.prototype.hasOwnProperty.call(data, key)) {
+                    element.innerHTML = data[key];
+                }
+            });
+
+            if (lang === 'id') {
+                selectedLangText.innerHTML = '<span class="text-base">🇮🇩</span> Indonesia';
+                checkId.classList.remove('hidden');
+                checkEn.classList.add('hidden');
+                document.documentElement.lang = 'id';
+            } else {
+                selectedLangText.innerHTML = '<span class="text-base">🇬🇧</span> English';
+                checkEn.classList.remove('hidden');
+                checkId.classList.add('hidden');
+                document.documentElement.lang = 'en';
+            }
+
+            langDropdown.classList.add('hidden');
+        }
+    </script>
+
+</body>
+</html>
